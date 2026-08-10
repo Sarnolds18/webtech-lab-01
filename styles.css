@@ -101,3 +101,21 @@ article p {
 }
 
 
+figure {
+    margin-top: 1rem;
+}
+
+figure img {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    font-style: italic;
+    color: #4b5563;
+    text-align: center;
+}
