@@ -43,6 +43,10 @@ nav ul {
 }
 
 
+#projects figure {
+    grid-column: 1 / -1;
+}
+
 
 form {
     display: flex;

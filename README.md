@@ -1,6 +1,6 @@
 # webtech-lab-01
 
-**Santiago Arnolds**
+**Santiago Arnolds Pérez**
 
 Personal page for Web Technologies — Lab 1.
 
