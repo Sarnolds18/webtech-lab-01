@@ -9,6 +9,7 @@
 
     <title>Santiago Arnolds — Civil Engineering in Computer Science</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 
 </head>
 
@@ -25,12 +26,15 @@
 
             <li><a href="#about-me">About me</a></li>
             <li><a href="#skills">Skills</a></li>
+            <li><a href="#gear">Setup</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
 
         </ul>
 
     </nav>
+
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">🌙 Modo oscuro</button>
 
 </header>
 
@@ -60,6 +64,54 @@
             <li>Git</li>
 
         </ul>
+    </section>
+
+
+    <section id="gear">
+
+        <h2>Mi setup</h2>
+        <p>Equipo que uso a diario: gaming, gym y escritorio.</p>
+
+        <div class="gear-controls">
+
+            <div class="gear-search-field">
+                <label for="gear-search">Buscar</label>
+                <input type="search" id="gear-search" name="gear-search" placeholder="Ej. mouse, cinturón...">
+            </div>
+
+            <div class="category-filter" role="group" aria-label="Filtrar por categoría">
+                <button type="button" data-category="all" class="active" aria-pressed="true">Todo</button>
+                <button type="button" data-category="Gaming" aria-pressed="false">Gaming</button>
+                <button type="button" data-category="Gym" aria-pressed="false">Gym</button>
+                <button type="button" data-category="Escritorio" aria-pressed="false">Escritorio</button>
+            </div>
+
+        </div>
+
+        <ul id="gear-list" class="gear-list"></ul>
+        <p id="gear-empty" class="empty-message" hidden>Ningún item coincide con tu búsqueda.</p>
+
+        <form id="gear-form" class="gear-form">
+
+            <h3>Agregar item</h3>
+
+            <label for="gear-name">Nombre</label>
+            <input type="text" id="gear-name" name="gear-name" required>
+
+            <label for="gear-category-input">Categoría</label>
+            <select id="gear-category-input" name="gear-category-input">
+                <option value="Gaming">Gaming</option>
+                <option value="Gym">Gym</option>
+                <option value="Escritorio">Escritorio</option>
+            </select>
+
+            <label for="gear-detail-input">Detalle</label>
+            <textarea id="gear-detail-input" name="gear-detail-input" rows="3" required></textarea>
+
+            <button type="submit">Agregar</button>
+
+        </form>
+
     </section>
 
 
@@ -97,17 +149,22 @@
 
         <h2>Contact</h2>
 
-        <form>
+        <form id="contact-form" novalidate>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" aria-describedby="name-error">
+            <span id="name-error" class="error-message" aria-live="polite"></span>
 
             <label for="email">Email</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" aria-describedby="email-error">
+            <span id="email-error" class="error-message" aria-live="polite"></span>
 
             <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5"></textarea>
+            <textarea id="message" name="message" rows="5" aria-describedby="message-error"></textarea>
+            <span id="message-error" class="error-message" aria-live="polite"></span>
 
             <button type="submit">Send</button>
+
+            <p id="form-status" role="status"></p>
 
         </form>
 
