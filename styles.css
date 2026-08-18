@@ -6,14 +6,40 @@
 }
 
 
+:root {
+    --color-bg: #ffffff;
+    --color-fg: #1a1a1a;
+    --color-muted: #4b5563;
+    --color-border: #d1d5db;
+    --color-card-bg: #f9fafb;
+    --color-accent: #1d4ed8;
+    --color-accent-fg: #ffffff;
+    --color-error: #b91c1c;
+    --color-success: #15803d;
+}
+
+
 body {
     font-family: system-ui, sans-serif;
     line-height: 1.6;
-    color: #1a1a1a;
-    background: #ffffff;
+    color: var(--color-fg);
+    background: var(--color-bg);
     max-width: 1100px;
     margin: 0 auto;
     padding: 1rem;
+}
+
+
+body.dark-theme {
+    --color-bg: #0f172a;
+    --color-fg: #e5e7eb;
+    --color-muted: #9ca3af;
+    --color-border: #334155;
+    --color-card-bg: #1e293b;
+    --color-accent: #60a5fa;
+    --color-accent-fg: #0f172a;
+    --color-error: #f87171;
+    --color-success: #4ade80;
 }
 
 
@@ -57,12 +83,15 @@ form {
 
 
 input,
-textarea {
+textarea,
+select {
     padding: 0.5rem;
-    border: 1px solid #999;
+    border: 1px solid var(--color-border);
     border-radius: 4px;
     font: inherit;
-    margin-bottom: 0.75rem;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    margin-bottom: 0.25rem;
 }
 
 
@@ -70,8 +99,8 @@ button {
     padding: 0.6rem 1.5rem;
     border: none;
     border-radius: 4px;
-    background: #1d4ed8;
-    color: #ffffff;
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
     font: inherit;
     cursor: pointer;
     align-self: flex-start;
@@ -81,8 +110,9 @@ button {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
-    outline: 3px solid #1d4ed8;
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--color-accent);
     outline-offset: 2px;
 }
 
@@ -120,6 +150,127 @@ figcaption {
     margin-top: 0.5rem;
     font-size: 0.875rem;
     font-style: italic;
-    color: #4b5563;
+    color: var(--color-muted);
     text-align: center;
+}
+
+
+/* ---------- Theme toggle ---------- */
+
+.theme-toggle {
+    margin-top: 1rem;
+    background: var(--color-card-bg);
+    color: var(--color-fg);
+    border: 1px solid var(--color-border);
+}
+
+
+/* ---------- Gear collection (Lab 2) ---------- */
+
+.gear-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.gear-search-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.category-filter button {
+    padding: 0.4rem 0.9rem;
+    background: var(--color-card-bg);
+    color: var(--color-fg);
+    border: 1px solid var(--color-border);
+}
+
+.category-filter button.active {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+    border-color: var(--color-accent);
+}
+
+.gear-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    list-style: none;
+    margin-bottom: 1.5rem;
+}
+
+.gear-item {
+    flex: 1 1 260px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--color-card-bg);
+}
+
+.gear-item-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.gear-item-header h3 {
+    flex: 1 1 auto;
+    margin-bottom: 0;
+}
+
+.gear-category-badge {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    background: var(--color-border);
+    color: var(--color-fg);
+}
+
+.gear-toggle {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.85rem;
+}
+
+.gear-detail {
+    margin-top: 0.75rem;
+    color: var(--color-muted);
+}
+
+.empty-message {
+    color: var(--color-muted);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.gear-form h3 {
+    margin-bottom: 0.5rem;
+}
+
+
+/* ---------- Form validation ---------- */
+
+.error-message {
+    display: block;
+    min-height: 1.1em;
+    color: var(--color-error);
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+#form-status {
+    margin-top: 0.5rem;
+    font-weight: 600;
+}
+
+#form-status.success {
+    color: var(--color-success);
 }

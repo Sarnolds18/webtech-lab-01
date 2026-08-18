@@ -34,7 +34,7 @@
 
     </nav>
 
-    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">🌙 Modo oscuro</button>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">🌙 Dark mode</button>
 
 </header>
 
@@ -69,46 +69,46 @@
 
     <section id="gear">
 
-        <h2>Mi setup</h2>
-        <p>Equipo que uso a diario: gaming, gym y escritorio.</p>
+        <h2>My setup</h2>
+        <p>Equipment I use every day: PC, gym and desk.</p>
 
         <div class="gear-controls">
 
             <div class="gear-search-field">
-                <label for="gear-search">Buscar</label>
-                <input type="search" id="gear-search" name="gear-search" placeholder="Ej. mouse, cinturón...">
+                <label for="gear-search">Search</label>
+                <input type="search" id="gear-search" name="gear-search" placeholder="E.g. mouse, headset...">
             </div>
 
-            <div class="category-filter" role="group" aria-label="Filtrar por categoría">
-                <button type="button" data-category="all" class="active" aria-pressed="true">Todo</button>
-                <button type="button" data-category="Gaming" aria-pressed="false">Gaming</button>
+            <div class="category-filter" role="group" aria-label="Filter by category">
+                <button type="button" data-category="all" class="active" aria-pressed="true">All</button>
+                <button type="button" data-category="PC" aria-pressed="false">PC</button>
                 <button type="button" data-category="Gym" aria-pressed="false">Gym</button>
-                <button type="button" data-category="Escritorio" aria-pressed="false">Escritorio</button>
+                <button type="button" data-category="Desk" aria-pressed="false">Desk</button>
             </div>
 
         </div>
 
         <ul id="gear-list" class="gear-list"></ul>
-        <p id="gear-empty" class="empty-message" hidden>Ningún item coincide con tu búsqueda.</p>
+        <p id="gear-empty" class="empty-message" hidden>No item matches your search.</p>
 
         <form id="gear-form" class="gear-form">
 
-            <h3>Agregar item</h3>
+            <h3>Add item</h3>
 
-            <label for="gear-name">Nombre</label>
+            <label for="gear-name">Name</label>
             <input type="text" id="gear-name" name="gear-name" required>
 
-            <label for="gear-category-input">Categoría</label>
+            <label for="gear-category-input">Category</label>
             <select id="gear-category-input" name="gear-category-input">
-                <option value="Gaming">Gaming</option>
+                <option value="PC">PC</option>
                 <option value="Gym">Gym</option>
-                <option value="Escritorio">Escritorio</option>
+                <option value="Desk">Desk</option>
             </select>
 
-            <label for="gear-detail-input">Detalle</label>
+            <label for="gear-detail-input">Detail</label>
             <textarea id="gear-detail-input" name="gear-detail-input" rows="3" required></textarea>
 
-            <button type="submit">Agregar</button>
+            <button type="submit">Add</button>
 
         </form>
 
