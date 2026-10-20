@@ -1,5 +1,8 @@
 "use strict";
 
+/* The Wheelhouse API. Written once: every request below starts from it. */
+const API_URL = "http://localhost:3000/api/v1";
+
 /* ---------- 1. The collection: data ---------- */
 
 const gearItems = [
@@ -221,6 +224,178 @@ function initThemeToggle() {
     });
 }
 
+/* ---------- 7. Wheelhouse price list, from the API ---------- */
+
+/* Prices travel as strings ("12000.00"); the shop charges whole Chilean pesos. */
+const pesos = new Intl.NumberFormat("es-CL", {
+    style: "currency",
+    currency: "CLP",
+    currencyDisplay: "code",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+});
+
+function formatPrice(price) {
+    return pesos.format(Number(price));
+}
+
+/*
+ * Asks the API for one path and never throws. It answers one of:
+ *   { data }    the API answered 2xx with JSON
+ *   { errors }  the API answered, but not 2xx: the messages of its "errors"
+ *   { down }    the API did not answer at all (server off, network gone)
+ */
+async function askApi(path) {
+    let response;
+    try {
+        response = await fetch(API_URL + path);
+    } catch {
+        return { down: true };
+    }
+
+    let body = null;
+    try {
+        body = await response.json();
+    } catch {
+        body = null;
+    }
+
+    if (!response.ok) {
+        const errors = body && Array.isArray(body.errors) && body.errors.length > 0
+            ? body.errors
+            : [`The API answered with status ${response.status}.`];
+        return { errors };
+    }
+    if (body === null) {
+        return { errors: ["The API answered something that is not JSON."] };
+    }
+    return { data: body };
+}
+
+/* Writes one sentence, or a list of messages, into a status box. Text only. */
+function showMessages(box, messages, isError) {
+    box.textContent = "";
+    box.classList.toggle("error", isError);
+
+    if (messages.length === 1) {
+        const p = document.createElement("p");
+        p.textContent = messages[0];
+        box.appendChild(p);
+        return;
+    }
+
+    const ul = document.createElement("ul");
+    messages.forEach((message) => {
+        const li = document.createElement("li");
+        li.textContent = message;
+        ul.appendChild(li);
+    });
+    box.appendChild(ul);
+}
+
+const API_DOWN_MESSAGE = "The Wheelhouse API is not answering right now, so the price list can't be shown.";
+
+function createPriceRow(service) {
+    const tr = document.createElement("tr");
+
+    const id = document.createElement("td");
+    id.textContent = String(service.id);
+
+    const name = document.createElement("td");
+    name.textContent = service.name;
+
+    const category = document.createElement("td");
+    category.textContent = service.category ?? "—";
+
+    const price = document.createElement("td");
+    price.className = "price-cell";
+    price.textContent = formatPrice(service.price);
+
+    tr.append(id, name, category, price);
+    return tr;
+}
+
+async function loadPriceList() {
+    const status = document.querySelector("#prices-status");
+    const table = document.querySelector("#prices-table");
+    const body = document.querySelector("#prices-body");
+
+    const answer = await askApi("/services");
+
+    if (answer.down) {
+        showMessages(status, [API_DOWN_MESSAGE], true);
+        return;
+    }
+    if (answer.errors) {
+        showMessages(status, answer.errors, true);
+        return;
+    }
+    if (answer.data.length === 0) {
+        showMessages(status, ["The shop has no services on its price list yet."], false);
+        return;
+    }
+
+    body.textContent = "";
+    answer.data.forEach((service) => body.appendChild(createPriceRow(service)));
+    table.hidden = false;
+    status.textContent = "";
+    status.hidden = true;
+}
+
+/* ---------- 8. One service, by the id the person types ---------- */
+
+function createServiceCard(service) {
+    const card = document.createElement("dl");
+    card.className = "service-card";
+
+    const times = service.times_charged;
+    const fields = [
+        ["Name", service.name],
+        ["Price", formatPrice(service.price)],
+        ["Times charged", `${times} ${times === 1 ? "repair" : "repairs"}`],
+    ];
+
+    fields.forEach(([label, value]) => {
+        const dt = document.createElement("dt");
+        dt.textContent = label;
+        const dd = document.createElement("dd");
+        dd.textContent = value;
+        card.append(dt, dd);
+    });
+
+    return card;
+}
+
+function initServiceLookup() {
+    const form = document.querySelector("#service-lookup");
+    const input = document.querySelector("#service-id");
+    const result = document.querySelector("#service-result");
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const id = input.value.trim();
+        if (id === "") return;
+
+        showMessages(result, [`Looking up service ${id}…`], false);
+
+        const answer = await askApi(`/services/${encodeURIComponent(id)}`);
+
+        if (answer.down) {
+            showMessages(result, ["The Wheelhouse API is not answering right now, so the service can't be looked up."], true);
+            return;
+        }
+        if (answer.errors) {
+            showMessages(result, answer.errors, true);
+            return;
+        }
+
+        result.textContent = "";
+        result.classList.remove("error");
+        result.appendChild(createServiceCard(answer.data));
+    });
+}
+
 /* ---------- Init ---------- */
 
 renderGearList();
@@ -229,3 +404,5 @@ initGearForm();
 initGearDelegation();
 initContactForm();
 initThemeToggle();
+loadPriceList();
+initServiceLookup();

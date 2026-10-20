@@ -28,6 +28,7 @@
             <li><a href="#skills">Skills</a></li>
             <li><a href="#gear">Setup</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#prices">Wheelhouse prices</a></li>
             <li><a href="#contact">Contact</a></li>
 
         </ul>
@@ -141,6 +142,42 @@
             <figcaption>Finance can be fun</figcaption>
 
         </figure>
+
+    </section>
+
+
+    <section id="prices">
+
+        <h2>Wheelhouse price list</h2>
+        <p>Wheelhouse is a neighbourhood bicycle repair shop (my Web Technologies project). This list is
+            read live from its API, so it is always the shop's current price list.</p>
+
+        <div id="prices-status" class="api-status" role="status">Loading the price list…</div>
+
+        <table id="prices-table" class="prices-table" hidden>
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Service</th>
+                    <th scope="col">Category</th>
+                    <th scope="col" class="price-cell">Price</th>
+                </tr>
+            </thead>
+            <tbody id="prices-body"></tbody>
+        </table>
+
+        <form id="service-lookup" class="service-lookup">
+
+            <h3>Look up one service</h3>
+
+            <label for="service-id">Service id</label>
+            <input type="number" id="service-id" name="service-id" min="1" step="1" required>
+
+            <button type="submit">Look up</button>
+
+        </form>
+
+        <div id="service-result" class="service-result" aria-live="polite"></div>
 
     </section>
 

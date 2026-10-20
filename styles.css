@@ -274,3 +274,76 @@ figcaption {
 #form-status.success {
     color: var(--color-success);
 }
+
+
+/* ---------- Wheelhouse price list (Lab 10) ---------- */
+
+.api-status {
+    color: var(--color-muted);
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.api-status.error {
+    color: var(--color-error);
+    font-style: normal;
+}
+
+.api-status ul {
+    padding-left: 1.25rem;
+}
+
+.prices-table {
+    width: 100%;
+    max-width: 700px;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+.prices-table th,
+.prices-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+}
+
+.prices-table thead th {
+    background: var(--color-card-bg);
+}
+
+.prices-table .price-cell {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.service-lookup {
+    margin-bottom: 1rem;
+}
+
+.service-result {
+    margin-bottom: 1rem;
+}
+
+.service-result.error {
+    color: var(--color-error);
+}
+
+.service-result ul {
+    padding-left: 1.25rem;
+}
+
+.service-card {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.25rem 1rem;
+    max-width: 500px;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-card-bg);
+}
+
+.service-card dt {
+    font-weight: 600;
+}
